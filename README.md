@@ -1,6 +1,6 @@
 # HLOL
 Any tiny magnet link batch auto search python script.For our "gentlemen" do some happy things~
-##########################################
+===========================================
 Installation
 1.Download Python interporator 3.x.You can get it from https://www.python.org/downloads/
 2.Config python path.
