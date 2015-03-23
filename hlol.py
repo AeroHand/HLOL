@@ -77,16 +77,17 @@ global useProxy,proxy,username,password;
 cf=configparser.ConfigParser();
 try:
     cf.read('./proxy.ini');
-    useproxy=int(cf.get('Proxy','userproxy'));
+    useproxy=int(cf.get('Proxy','useproxy'));
     proxy=cf.get('Proxy', 'proxy');
     username=cf.get('Proxy', 'username');
     password=cf.get('Proxy', 'password');
 except:
     sys.exit(1);
 #install proxy
-proxyconfig='http://%s:%s@%s' %(username,password,proxy);
-opener=urllib.request.build_opener(urllib.request.ProxyHandler({'http':proxyconfig}));
-urllib.request.install_opener(opener);
+if useproxy==1:
+    proxyconfig='http://%s:%s@%s' %(username,password,proxy);
+    opener=urllib.request.build_opener(urllib.request.ProxyHandler({'http':proxyconfig}));
+    urllib.request.install_opener(opener);
 mode=int(input("Please select Mode:\n\t1.Keys to magnet links\n\t2.javfree page to all keys.\n\n"));
 if mode==1:
     key2mag();
