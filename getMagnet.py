@@ -1,6 +1,7 @@
 import sys
 from html.parser import HTMLParser
 import urllib
+import zlib
 from pip._vendor.requests.packages import urllib3
 from lib2to3.fixer_util import String
 class BTSMain_Parser(HTMLParser):
@@ -49,7 +50,10 @@ class BTSMain_Parser(HTMLParser):
 def GetFromBTSpread(designation):
 	urlbase="http://www.btspread.com/search/";
 	url=urlbase+designation;
-	html=urllib.request.urlopen(url).read();
+	response=urllib.request.urlopen(url);
+	html=response.read();
+	if response.info().get('Content-Encoding')=='gzip':
+		html=zlib.decompress(html, 16+zlib.MAX_WBITS);
 	btsmp=BTSMain_Parser();
 	btsmp.feed(html.decode());
 	subpageurl=btsmp.getURL();
